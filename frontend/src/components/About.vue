@@ -3,24 +3,10 @@
     <h3 class="page-title white-text teal">About</h3>
     <div class="container flow-text">
       <blockquote>
-        <h2>
-          Mission-driven full stack developer with a passion for thoughtful UI
-          design, collaboration, and teaching.
-        </h2>
+        <h2>{{ header }}</h2>
       </blockquote>
       <p>
-        I’ve always sought out opportunities and challenges that are meaningful
-        to me. Although my professional path has taken many twists and turns —
-        from touring and recording artist, to employee of the year at a
-        non-profit, to dean's scholar at UPenn, to small business owner and
-        entrepreneur — I've never stopped engaging my passion to help others and
-        solve problems.
-      </p>
-      <p>
-        As a web developer, I enjoy using my obsessive attention to detail, my
-        unequivocal love for making things, and my mission-driven work ethic to
-        literally change the world. That's why I’m excited to make a big impact
-        at a high growth company.
+        {{ descripion }}
       </p>
       <p>
         <strong>Current Focus</strong>:&nbsp;<a
@@ -42,7 +28,30 @@
 </template>
 
 <script>
-export default {};
+import axios from "axios";
+
+export default {
+  data() {
+    return {
+      introHeader: "",
+      introDescription: ""
+    };
+  },
+  computed: {
+    header() {
+      return this.introHeader;
+    },
+    descripion() {
+      return this.introDescription;
+    }
+  },
+  mounted() {
+    axios.get("http://localhost:1337/basicinfos").then(res => {
+      this.introHeader = res.data[0].introHeader;
+      this.introDescription = res.data[0].introDescription;
+    });
+  }
+};
 </script>
 
 <style>

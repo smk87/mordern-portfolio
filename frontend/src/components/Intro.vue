@@ -32,7 +32,6 @@ export default {
   },
   mounted() {
     axios.get("http://localhost:1337/basicinfos").then(res => {
-      console.log(res.data[0].introPic.url);
       this.introPicUrl = res.data[0].introPic.url;
     });
   }
