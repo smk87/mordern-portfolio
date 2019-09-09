@@ -1,17 +1,122 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <link rel="icon" href="<%= BASE_URL %>favicon.ico">
-    <title>frontend</title>
-  </head>
-  <body>
-    <noscript>
-      <strong>We're sorry but frontend doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
-    </noscript>
-    <div id="app"></div>
-    <!-- built files will be auto injected -->
-  </body>
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width initial-scale=1" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <!-- Materialize - Compiled and minified CSS-->
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/materialize/0.95.3/css/materialize.min.css" />
+  <!-- Font Awesome Icon - CSS-->
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" />
+  <!-- Custom Styles-->
+  <link rel="stylesheet" href="style.css" />
+  <title>Saqlain Mahmud | Full Stack Developer</title>
+  <!-- Open Graph-->
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Andrew Borstein | Full Stack Developer" />
+  <meta property="og:description" content="I want to make things that make a difference." />
+  <meta property="og:url" content="andrewborstein.com" />
+  <meta property="og:site_name" content="Andrew Borstein | Full Stack Developer" />
+  <meta property="article:publisher" content="andrewborstein.com" />
+  <meta property="og:image" content="" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@andrewarei" />
+  <meta name="twitter:title" content="Andrew Borstein | Full Stack Developer" />
+  <meta name="twitter:description" content="I want to make things that make a difference." />
+  <meta name="twitter:url" content="andrewborstein.com" />
+  <meta name="author" content="Andrew Borstein" />
+  <meta name="description" content="I want to make things that make a difference." />
+  <meta name="msapplication-TileColor" content="#ffffff" />
+  <meta name="msapplication-TileImage" content="/assets/img/favicon/ms-icon-144x144.png" />
+  <meta name="theme-color" content="#ffffff" />
+  <!--if lt IE 9script(src='//html5shim.googlecode.com/svn/trunk/html5.js')
+    -->
+  <meta name="robots" content="index, follow" />
+  <meta name="google-site-verification" content="-3F1R8ekDXe8XFfCi7eIVfXOSWqlp_pWNQX2dfgKD4Y" />
+</head>
+
+<body>
+  <noscript>
+    <strong>We're sorry but frontend doesn't work properly without JavaScript enabled. Please enable it to
+      continue.</strong>
+  </noscript>
+  <div id="app"></div>
+  <!-- built files will be auto injected -->
+
+  <script>
+    let analyticsId
+
+    // If analytics id has not been manually defined
+    if (!analyticsId) {
+      // Initialize GA with Netlify env var
+      getAnalyticsIdFromNetlify().then(initGoogleAnalytics, console.log)
+    } else {
+      // Initialize GA with local var
+      initGoogleAnalytics(analyticsId)
+    }
+
+    // -------------------------------------------------
+    // Helper Functions
+    // --------------------------------------------------
+
+    function handleError(error) {
+      console.log("error", error)
+    }
+
+    function getEnvVar(response) {
+      // If the request was successful, return the response text.
+      if (response.ok) return response.text()
+    }
+
+    // Fetch environment variable via Netlify Lambda Function
+    function getAnalyticsIdFromNetlify() {
+      return fetch("/.netlify/functions/env_vars")
+        .then(getEnvVar, handleError)
+        .catch(handleError)
+    }
+
+    // Set Up Google Analytics
+    function initGoogleAnalytics(analyticsId) {
+      if (analyticsId) {
+        // Inject the Google Analytics Tag Manager script into the DOM
+        analyticsUrl =
+          "https://www.googletagmanager.com/gtag/js?id=UA-" + analyticsId
+        var ref = document.getElementsByTagName("script")[0]
+        var script = document.createElement("script")
+        script.src = analyticsUrl
+        ref.parentNode.insertBefore(script, ref)
+
+        // Intitlize Google Analytics
+        window.dataLayer = window.dataLayer || []
+
+        function gtag() {
+          dataLayer.push(arguments)
+        }
+        gtag("js", new Date())
+        gtag("config", "UA-" + analyticsId)
+      }
+    }
+  </script>
+
+  <!-- jQuery-->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
+  <!-- Materialize - Compiled and minified JavaScript-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.95.3/js/materialize.min.js"></script>
+  <script>
+    // Materialize - Initializers
+    $(document).ready(function () {
+      $(".scrollspy").scrollSpy()
+      // Initialize collapse button
+      $(".button-collapse").sideNav({
+        menuWidth: 190, // Default is 240
+        edge: "left", // Choose the horizontal origin
+        closeOnClick: true // Closes side-nav on <a> clicks, useful for Angular/Meteor
+      })
+    })
+  </script>
+</body>
+
 </html>
