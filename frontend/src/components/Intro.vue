@@ -1,6 +1,12 @@
 <template>
   <section id="intro" class="section scrollspy full-height">
-    <div class="overlay"></div>
+    <div
+      class="overlay"
+      :style="{
+        background: `url(http://localhost:1337${introPic}) no-repeat`
+      }"
+    ></div>
+    <p>{{ introPic }}</p>
     <div class="container">
       <h2>
         I want to <span class="teal">develop things</span><br />that
@@ -11,13 +17,31 @@
 </template>
 
 <script>
-export default {};
+import axios from "axios";
+
+export default {
+  data() {
+    return {
+      introPicUrl: ""
+    };
+  },
+  computed: {
+    introPic() {
+      return this.introPicUrl;
+    }
+  },
+  mounted() {
+    axios.get("http://localhost:1337/basicinfos").then(res => {
+      console.log(res.data[0].introPic.url);
+      this.introPicUrl = res.data[0].introPic.url;
+    });
+  }
+};
 </script>
 
 <style scoped>
 .overlay {
-  background-image: url("https://proxy.duckduckgo.com/iu/?u=https%3A%2F%2Fres.cloudinary.com%2Fteepublic%2Fimage%2Fprivate%2Fs---WWr4BZ4--%2Ft_Preview%2Fb_rgb%3A262c3a%2Cc_lpad%2Cf_jpg%2Ch_630%2Cq_90%2Cw_1200%2Fv1500169073%2Fproduction%2Fdesigns%2F1741229_1.jpg&f=1&nofb=1");
-  background-size: 100% auto;
-  background-repeat: no-repeat;
+  background-size: 100% auto !important;
+  background-position: center !important;
 }
 </style>

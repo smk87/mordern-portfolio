@@ -1,0 +1,41 @@
+{
+  "connection": "default",
+  "collectionName": "basicinfos",
+  "info": {
+    "name": "basicinfo",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": [
+      "created_at",
+      "updated_at"
+    ],
+    "comment": ""
+  },
+  "attributes": {
+    "name": {
+      "default": "Saqlain Mahmud",
+      "type": "string"
+    },
+    "introPic": {
+      "model": "file",
+      "via": "related",
+      "plugin": "upload"
+    },
+    "introHeader": {
+      "type": "string"
+    },
+    "introDescription": {
+      "type": "string"
+    },
+    "currentFocus": {
+      "enum": [
+        "Vue",
+        "Node",
+        "JavaScript"
+      ],
+      "type": "enumeration"
+    }
+  }
+}
