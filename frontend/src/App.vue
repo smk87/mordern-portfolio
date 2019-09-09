@@ -6,6 +6,7 @@
       <About></About>
       <Experience></Experience>
       <Projects></Projects>
+      <Skills></Skills>
     </main>
   </div>
 </template>
@@ -16,6 +17,7 @@ import Intro from "./components/Intro.vue";
 import About from "./components/About.vue";
 import Experience from "./components/Experience.vue";
 import Projects from "./components/Projects.vue";
+import Skills from "./components/Skills.vue";
 
 export default {
   components: {
@@ -23,7 +25,8 @@ export default {
     Intro,
     About,
     Experience,
-    Projects
+    Projects,
+    Skills
   }
 };
 </script>
