@@ -75,14 +75,6 @@
         </li>
         <li class="bold">
           <a
-            aria-label="Navigate to the Blog section"
-            href="#blog"
-            class="waves-effect waves-dark yellow-text text-darken-2"
-            ><i class="mdi-content-create small"></i><span>Blog</span></a
-          >
-        </li>
-        <li class="bold">
-          <a
             aria-label="Open Andrew's resume in a new tab"
             href="https://docs.google.com/document/d/1evlvmAcOmPTttl1isyX_UcQbLO5pK8OwB4Rs2Sv4riY"
             target="_blank"
