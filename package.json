@@ -1,5 +1,5 @@
 {
-  "dependencies": {
-    "axios": "^0.19.0"
+  "scripts": {
+    "dev": "concurrently \"npm run serve --prefix frontend \" \"npm run develop --prefix cms\""
   }
 }
