@@ -1,0 +1,45 @@
+{
+  "connection": "default",
+  "collectionName": "experiences",
+  "info": {
+    "name": "experiences",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": [
+      "created_at",
+      "updated_at"
+    ],
+    "comment": ""
+  },
+  "attributes": {
+    "companyLogo": {
+      "type": "string"
+    },
+    "companyTitle": {
+      "type": "string"
+    },
+    "position": {
+      "type": "string"
+    },
+    "info": {
+      "type": "string"
+    },
+    "accomplishments": {
+      "type": "json"
+    },
+    "location": {
+      "type": "string"
+    },
+    "start": {
+      "type": "string"
+    },
+    "end": {
+      "type": "string"
+    },
+    "link": {
+      "type": "string"
+    }
+  }
+}

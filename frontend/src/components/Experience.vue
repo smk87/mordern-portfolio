@@ -2,74 +2,49 @@
   <section id="experience" class="section scrollspy">
     <h3 class="page-title white-text teal">Experience</h3>
     <div class="container">
-      <div class="card">
+      <div v-for="(experience, index) in experiences" :key="index" class="card">
         <div class="card-content">
           <div class="row">
             <div class="col s12 m2">
-              <a href="http://wespire.com" target="_blank"
+              <a :href="experience.link" target="_blank"
                 ><img
-                  alt="WeSpire logo"
-                  src="/assets/img/wespire-logo.jpg"
+                  alt=""
+                  :src="experience.companyLogo"
                   class="responsive-img center-block"
               /></a>
             </div>
-            <div class="col s12 m10">
+            <div class="col s12 m10 companyTitle">
               <p>
                 <span class="card-title"
                   ><a
-                    href="http://wespire.com"
+                    :href="experience.link"
                     target="_blank"
                     class="teal-text hoverline"
-                    >Wespire</a
+                    style="font-size: 1.2rem;"
+                    >{{ experience.companyTitle }}</a
                   ></span
                 >
               </p>
             </div>
           </div>
-          <div class="role brown-text">Full-Stack Software Developer</div>
+          <div class="role brown-text">{{ experience.position }}</div>
           <p>
-            <em class="grey-text"
-              >SaaS platform that enables enterprise companies to build, run,
-              and measure their positive impact campaigns</em
-            >
+            <em class="grey-text">{{ experience.info }}</em>
           </p>
-          <h6>Develop Product</h6>
           <ul>
-            <li>
-              Contribute core features across entire stack (20k+ lines of code,
-              250+ pulls)
-            </li>
-            <li>
-              Lead front-end development, creating and documenting app-wide
-              design system
-            </li>
-            <li>
-              Oversee transition from page-based styles to modular component
-              styles
-            </li>
-            <li>Guide best practices around accessible, semantic UI/UX</li>
-            <li>
-              Tools: Ruby, Rails, PostgreSQL // React, JS, jQuery // Sass //
-              HTML, JSX, Haml
-            </li>
-          </ul>
-          <h6>Accomplishments</h6>
-          <ul>
-            <li>
-              Dramatically increased speed of UI development using atomic,
-              scalable CSS
-            </li>
-            <li>
-              Built tool to convert HRIS data into user accounts to simplify
-              onboarding
-            </li>
-            <li>
-              Implemented inline @tagging feature to increase app share-ability
+            <li
+              v-for="(accomplishment, index) in experience.accomplishments"
+              :key="index"
+            >
+              {{ accomplishment.text }}
             </li>
           </ul>
         </div>
         <div class="card-action">
-          <span>Jan 2016 - Present | Boston, MA</span>
+          <span
+            >{{ experience.start }} - {{ experience.end }} |
+            {{ experience.location }}</span
+          >
         </div>
       </div>
     </div>
@@ -77,8 +52,33 @@
 </template>
 
 <script>
-export default {};
+import axios from "axios";
+import constant from "../constant";
+
+const { endpoints } = constant;
+
+export default {
+  data() {
+    return {
+      experiences: []
+    };
+  },
+  created() {
+    axios.get(endpoints.experiences).then(res => {
+      this.experiences = res.data;
+    });
+  }
+};
 </script>
 
-<style>
+<style scoped>
+.companyTitle {
+  margin: -0.5rem 0 0 0;
+}
+
+@media (max-width: 40rem) {
+  .companyTitle {
+    margin: 0;
+  }
+}
 </style>

@@ -3,10 +3,9 @@
     <div
       class="overlay"
       :style="{
-        background: `url(${mainUrl}${introPic}) no-repeat`
+        background: `url(${mainUrl}${introPicUrl}) no-repeat`
       }"
     ></div>
-    <p>{{ introPic }}</p>
     <div class="container">
       <h2>
         I want to <span class="teal">develop things</span><br />that
@@ -29,12 +28,7 @@ export default {
       mainUrl: endpoints.main
     };
   },
-  computed: {
-    introPic() {
-      return this.introPicUrl;
-    }
-  },
-  mounted() {
+  created() {
     axios.get(endpoints.basicInfo).then(res => {
       this.introPicUrl = res.data[0].introPic.url;
     });

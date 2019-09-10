@@ -3,19 +3,19 @@
     <h3 class="page-title white-text teal">About</h3>
     <div class="container flow-text">
       <blockquote>
-        <h2>{{ header }}</h2>
+        <h2>{{ introHeader }}</h2>
       </blockquote>
       <p>
-        {{ descripion }}
+        {{ introDescription }}
       </p>
       <p>
         <strong>Current Focus</strong>:
-        <span v-for="(focus, index) in focusses" :key="index"
+        <span v-for="(focus, index) in currentFocus" :key="index"
           >&nbsp;<a
             aria-label="Navigate to the Inclusive Design Patterns homepage"
             href="#"
             >{{ focus }}</a
-          ><span v-if="index + 1 !== focusses.length"
+          ><span v-if="index + 1 !== currentFocus.length"
             >&nbsp;//&nbsp;</span
           ></span
         >
@@ -38,18 +38,7 @@ export default {
       currentFocus: []
     };
   },
-  computed: {
-    header() {
-      return this.introHeader;
-    },
-    descripion() {
-      return this.introDescription;
-    },
-    focusses() {
-      return this.currentFocus;
-    }
-  },
-  mounted() {
+  created() {
     axios.get(endpoints.basicInfo).then(res => {
       this.introHeader = res.data[0].introHeader;
       this.introDescription = res.data[0].introDescription;
