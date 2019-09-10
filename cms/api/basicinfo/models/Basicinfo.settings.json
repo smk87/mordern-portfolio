@@ -30,12 +30,7 @@
       "type": "string"
     },
     "currentFocus": {
-      "enum": [
-        "Vue",
-        "Node",
-        "JavaScript"
-      ],
-      "type": "enumeration"
+      "type": "string"
     }
   }
 }

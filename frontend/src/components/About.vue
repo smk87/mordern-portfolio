@@ -9,18 +9,15 @@
         {{ descripion }}
       </p>
       <p>
-        <strong>Current Focus</strong>:&nbsp;<a
-          aria-label="Navigate to the Inclusive Design Patterns homepage"
-          href="https://www.smashingmagazine.com/inclusive-design-patterns/"
-          >Accessibility</a
-        >&nbsp;//&nbsp;<a
-          aria-label="Navigate to the Full Stack React homepage"
-          href="https://www.fullstackreact.com/"
-          >React</a
-        >&nbsp;//&nbsp;<a
-          aria-label='Navigate to the article "Scalable CSS"'
-          href="https://mrmrs.github.io/writing/2016/03/24/scalable-css/"
-          >Design Systems</a
+        <strong>Current Focus</strong>:
+        <span v-for="(focus, index) in focusses" :key="index"
+          >&nbsp;<a
+            aria-label="Navigate to the Inclusive Design Patterns homepage"
+            href="#"
+            >{{ focus }}</a
+          ><span v-if="index + 1 !== focusses.length"
+            >&nbsp;//&nbsp;</span
+          ></span
         >
       </p>
     </div>
@@ -29,12 +26,16 @@
 
 <script>
 import axios from "axios";
+import constant from "../constant";
+
+const { endpoints } = constant;
 
 export default {
   data() {
     return {
       introHeader: "",
-      introDescription: ""
+      introDescription: "",
+      currentFocus: []
     };
   },
   computed: {
@@ -43,16 +44,17 @@ export default {
     },
     descripion() {
       return this.introDescription;
+    },
+    focusses() {
+      return this.currentFocus;
     }
   },
   mounted() {
-    axios.get("http://localhost:1337/basicinfos").then(res => {
+    axios.get(endpoints.basicInfo).then(res => {
       this.introHeader = res.data[0].introHeader;
       this.introDescription = res.data[0].introDescription;
+      this.currentFocus = res.data[0].currentFocus.split(",");
     });
   }
 };
 </script>
-
-<style>
-</style>

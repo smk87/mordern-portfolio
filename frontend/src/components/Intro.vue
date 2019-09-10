@@ -3,14 +3,14 @@
     <div
       class="overlay"
       :style="{
-        background: `url(http://localhost:1337${introPic}) no-repeat`
+        background: `url(${mainUrl}${introPic}) no-repeat`
       }"
     ></div>
     <p>{{ introPic }}</p>
     <div class="container">
       <h2>
         I want to <span class="teal">develop things</span><br />that
-        <span class="underline">matters!</span>.
+        <span class="underline">matter!</span>
       </h2>
     </div>
   </section>
@@ -18,11 +18,15 @@
 
 <script>
 import axios from "axios";
+import constant from "../constant";
+
+const { endpoints } = constant;
 
 export default {
   data() {
     return {
-      introPicUrl: ""
+      introPicUrl: "",
+      mainUrl: endpoints.main
     };
   },
   computed: {
@@ -31,7 +35,7 @@ export default {
     }
   },
   mounted() {
-    axios.get("http://localhost:1337/basicinfos").then(res => {
+    axios.get(endpoints.basicInfo).then(res => {
       this.introPicUrl = res.data[0].introPic.url;
     });
   }
