@@ -3,22 +3,29 @@
     <h3 class="page-title white-text teal">Projects</h3>
     <div class="container">
       <div class="row">
-        <div class="col s12 m6 l4">
-          <div class="card medium">
-            <div class="card-image waves-effect waves-block waves-light">
+        <div
+          class="col s12 m6 l4 "
+          v-for="(project, index) in projects"
+          :key="index"
+        >
+          <div class="card medium project">
+            <div
+              class="card-image waves-effect waves-block waves-light thumbnail"
+            >
               <img
                 alt="Screenshot of Interpol8r web app"
-                src="/assets/img/interpol8r.jpg"
+                :src="`${mainUrl}${project.thumbnail.url}`"
                 class="activator"
+                style="height: 100%;"
               />
             </div>
             <div class="card-content">
               <span class="card-title activator teal-text hoverline"
-                >Interpol8r<i class="mdi-navigation-more-vert right"></i
+                >{{ project.title
+                }}<i class="mdi-navigation-more-vert right"></i
               ></span>
               <p>
-                Experimental web app with homemade recursive string
-                interpolation.
+                {{ project.info }}
               </p>
             </div>
             <div class="card-reveal">
@@ -26,23 +33,23 @@
                 >Accomplishments<i class="mdi-navigation-close right"></i
               ></span>
               <ul>
-                <li><strong>Ruby on Rails</strong> backend</li>
-                <li><strong>Bulma CSS</strong> frontend</li>
-                <li>String interpolation via <strong>recursion</strong></li>
-                <li><strong>Dependency free</strong> JS config</li>
+                <li
+                  v-for="(accomplishment, index) in project.accomplishments"
+                  :key="index"
+                >
+                  <strong>{{ accomplishment }}</strong>
+                </li>
               </ul>
               <div class="card-action">
                 <a
-                  aria-label="Visit Interpol8r web app"
-                  href="https://interpol8r.herokuapp.com/"
+                  :href="project.link"
                   target="_blank"
                   data-position="top"
                   data-tooltip="View Online"
                   class="btn-floating btn-large waves-effect waves-light brown tooltipped"
                   ><i class="fa fa-external-link"></i></a
                 ><a
-                  aria-label="Visit the GitHub repo for Interpol8r project"
-                  href="https://github.com/andrewborstein/interpol8r"
+                  :href="project.github"
                   target="_blank"
                   data-position="top"
                   data-tooltip="View Source"
@@ -59,5 +66,32 @@
 </template>
 
 <script>
-export default {};
+import axios from "axios";
+import constant from "../constant";
+
+const { endpoints } = constant;
+
+export default {
+  data() {
+    return {
+      projects: [],
+      mainUrl: endpoints.main
+    };
+  },
+  async created() {
+    const res = await axios.get(endpoints.projects);
+    this.projects = res.data;
+  }
+};
 </script>
+
+<style scoped>
+.project {
+  border-radius: 10px;
+}
+
+.thumbnail {
+  height: 15rem !important;
+  background: red;
+}
+</style>
